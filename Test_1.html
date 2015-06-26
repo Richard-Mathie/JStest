@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<title>Test 1</title>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" rel="stylesheet" />  
+<!-- Bootstrap Table   -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css" media="screen" rel="stylesheet" />
+<!-- Selectize   -->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.min.css" media="screen" rel="stylesheet" />-->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.bootstrap3.min.css" media="screen" rel="stylesheet" />-->
+
+
+<!--JavaScript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!-- Bootstrap Table -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+<!-- Selectize   -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>-->
+<style>
+body {
+    text-align: justify;
+}
+</style>
+
+</head>
+<body>
+<div class="col-xs-6 col-xs-offset-3">
+<h2>Data Tables</h2>
+You will find some data in a file named "Ride_Data.csv" the aim of this excersise is to display the data on a page using D3, add a bit of interactivity, and perhaps plot a graph of the data, and any metric you might find interesting.
+<h2>A complication</h2>
+To run this excersise you will need to run a simple web server to serve the data file to our JavaScript. This is because most browsers wont allow you to pull resourses from the file system unless you have dissabled some security options. While it’s possible to open files in your web browser out of the file system directly, this is likely to cause errors due to browser security restrictions.
+<h3>Linux with python</h3>
+In the terminal in the file directory
+<div>
+<code>
+python -m SimpleHTTPServer
+</code>
+</div>
+you should now be able to view the this file at <a href="localhost:8000/Test_1.html">Test 1</a>.
+<h3>Mac Os X</h3>
+<p>Taken from <a href="http://bost.ocks.org/mike/block/">here</a>.</p>
+
+Install npm and http-server
+<div>
+<code>
+curl https://npmjs.org/install.sh | sh
+npm install http-server -g
+</code>
+</div>
+
+<div>
+<code>
+ http-server ./
+</code>
+</div>
+<h3>Windows</h3>
+<div>
+Your a bit on your own on this one perhaps you could try <a href="https://code.google.com/p/mongoose/">mongoose</a>
+<div>
+<code>
+https://code.google.com/p/mongoose/
+</code>
+</div>
+</div>
+<div>
+<h2>Resources</h2>
+<ul>
+<li><a href="http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html">bootstrap tables</a></li>
+</ul>
+</div>
+
+<script>
+// code goes here
+</script>
+</div>
+</body>

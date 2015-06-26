@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" rel="stylesheet" />  
+
+<!--JavaScript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style>
+body {
+    text-align: justify;
+}
+</style>
+<body>
+<div class="col-xs-6 col-xs-offset-3">
+<p>D3 is very powerful for visualising data, </p>
+
+Mike Bostock is amazing 
+
+
+<h2 title="from the horses mouth">Resources</h2>
+<ul>
+<li><a href="http://bost.ocks.org/mike/"> Amazing Mike</a></li>
+<li><a href="https://github.com/mbostock/d3/wiki/API-Reference"> D3 API reference</a></li>
+<li><a href="http://bost.ocks.org/mike/circles/"> 3 little circles tutorial</a></li>
+<li><a href="http://bost.ocks.org/mike/selection/">How selections work</a></li>
+</ul>
+
+<h2>3 little circles</h2>
+<div>
+This is a small exercise to help introduce you to JavaScript and D3. It has been taken from Mikes <a href="http://bost.ocks.org/mike/circles/"> 3 little circles tutorial</a>. Remember you can run things in the console on Chrome or Firefox, Right click and click "inspect elements" to pull up the developers console. 
+</div>
+<div>
+<svg width="720" height="120">
+  <circle cx="40" cy="60" r="10"></circle>
+  <circle cx="80" cy="60" r="10"></circle>
+  <circle cx="120" cy="60" r="10"></circle>
+</svg>
+</div>
+<div>
+<span title="you might need a decent text editor">Edit Me:</span>
+<script>
+  var circles = d3.selectAll("circle"); // this is a selection
+  
+  // 1. try to change the colours and radius of the circles
+  //circles.style("fill", "steelblue");
+  //circles.attr("r", 30);
+  
+  // 2. make the circles dance! 
+  // try the selection.attr(name[, value])
+  // value could be a function
+  
+  // 3. bind some data
+  var data = [32, 57, 112]; // here is some data
+  // 3.a You can bind data with the selection.data([values[, key]]) method
+  
+  // 3.b set the cx coordinate with the selection.attr(name[, value]) function
+  // hint function(d,i){return blar;} 
+  // where d is an eliment of the data you just bound
+  // and i is its index
+  
+  
+  // 4. Entering eliments (adding), what happens when there is more data than circles
+  var data2 = [32, 57, 112, 293]
+  //var svg = d3.select("svg");
+  //var circles = svg.selectAll("circle")
+  //  .data(data2);
+  //var circleEnter = circles ....;
+  
+  // compute attributes...
+  
+  // 5. Exiting elements (removing), what happens now I have less data
+  var data3 = [32,57];
+  
+  
+  // 6. Put all the steps together for data4
+  var data4 = [32,57,293];
+  //var circles = svg.selectAll("circle")
+  //  ...;
+  //circles.enter().append("circle")
+  //  ...;
+  //circles.exit().remove();
+</script>
+</div>
+</div>
+</body>
