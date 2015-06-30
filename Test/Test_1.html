@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8">
+<title>Test 1</title>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" media="screen" rel="stylesheet" />  
+<!-- Bootstrap Table   -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css" media="screen" rel="stylesheet" />
+<!-- Selectize   -->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.min.css" media="screen" rel="stylesheet" />-->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.bootstrap3.min.css" media="screen" rel="stylesheet" />-->
+
+
+<!--JavaScript-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!-- Bootstrap Table -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+<!-- Selectize   -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>-->
+<style>
+body {
+    text-align: justify;
+}
+</style>
+
+</meta>
+</head>
+
+<body>
+<div class="col-xs-6 col-xs-offset-3">
+<div>
+  <h2>Data Tables</h2>
+  You will find some data in a file named "Ride_Data.csv" the aim of this exercise is to display the data on a page using D3, add a bit of interactivity, and perhaps plot a graph of the data, and any metric you might find interesting.
+  <h2 title="setting things up">A Complication</h2>
+  To run this exercise you will need to run a simple web server to serve the data file to our JavaScript. This is because most browsers wont allow you to pull resources from the file system unless you have disabled some security options.
+  That is, while it’s possible to open files in your web browser out of the file system directly, this is likely to cause errors due to browser security restrictions.
+  <h3>Linux with python</h3>
+  If you are running Linux and have python installed you can start a simple HTTP file server by running:
+  <div>
+  <code>
+  python -m SimpleHTTPServer
+  </code>
+  </div>
+  in the terminal in the file directory where the html sources are stored.
+  You should now be able to view the this file at <a href="localhost:8000/Test_1.html" title="Note the title in the address bar is localhost:8000 which means the file is being served out of your machine on port 8000.">Test 1</a>.
+  <h3>Mac Os X</h3>
+  <p>Taken from <a href="http://bost.ocks.org/mike/block/">here</a>.</p>
+  Install npm and http-server
+  <div>
+  <code>
+  curl https://npmjs.org/install.sh | sh
+  npm install http-server -g
+  </code>
+  </div>
+  Then in the directory where the html sources are stored.
+  <div>
+  <code>
+   http-server ./
+  </code>
+  </div>
+  <h3>Windows</h3>
+  <div>
+  Your a bit on your own on this one. If you can install <a title="Also I thoroughly recommend the google code tutorial!" href="https://developers.google.com/edu/python/set-up">python 2.7</a>
+  you can do the same <code>SimpleHTTPServer</code> trick as before
+  or perhaps you could try <a href="https://code.google.com/p/mongoose/">mongoose</a> which is apparently quite good.
+  </div>
+</div>
+<div>
+  <h2>Formatting a Table</h2>
+  <p>
+    Html mark-up allows the definition of many different kinds of elements and objects such as the following <a href="http://www.w3schools.com/html/html_tables.asp">table</a>,
+  </p>
+  <div class="row">
+  <div id="test_table" class="col-xs-6 col-xs-offset-3">
+    <table>
+      <thead>
+        <tr>
+          <th>Letter</th>
+          <th>Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>2</td>
+        </tr>
+      </tbody>     
+    </table>
+  </div>
+  </div>
+  <p>
+    However I think you will agree that that is a bit dull and poorly formatted and also lacks interactivity. You may have noticed that the html pages you are viewing are actually quite well formatted them selves.
+    This is because we are using a CSS framework developed by twitter called <a href="http://getbootstrap.com/">Bootstrap</a> which handles all of the formatting for us.
+    We can make this table look much nicer straight off by using the bootstrap CSS. Try editing the script below so that the table is classed as a table. 
+  </p>
+  <span title="text editor required">Edit me:</span>
+  <script>
+    // code goes here
+    // Part 1
+    var test_table;
+    // try this
+    //test_table=d3.select("#test_table").select("table")
+    //using d3 make sure the test_table is also classed as a "table" // see https://github.com/mbostock/d3/wiki/Selections#classed
+  </script>
+  <p>
+    This still isn't much fun. <span title="I know its only 2 elements, for now...."> How can I search or sort the table? Hide columns ect..?</span>
+    Well this is where Wen Zhi Xin's <a href="http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html">Bootstrap tables</a> comes in useful.
+    I have already included the relevant css and JS files in the header of this document. The library depends on JQuery and is linked to the relevant table tag like so:
+    <div>
+      <code>
+        $("#test_table table").bootstrapTable()
+      </code>
+    </div>
+    Where <code>#test_table</code> selects the div with the table in it and <code>table</code> selects the first table in that div. Have a go at adding attributes to the table and seeing what they do.
+  </p>
+  <span title="text editor required">Edit me:</span>
+  <script>
+    // code goes here
+    //test_table=d3.select("#test_table").select("table")
+    //test_table.classed("table",false)
+    
+    // Part 3
+    // add data-sortable attributes to table headers
+    // first select the header cell eliments "th" using d3
+    headers=test_table //select the thead eliments
+                       //select the tr eliments
+                       //select all the th elements
+    
+    // edit the headders                   
+    headers.attr("data-field",function(d){
+              return this.textContent.split(" ")[0].toLowerCase();
+           })
+           // add data-sortable attribute to the headders ( .attr("attribute",true) )
+           
+            
+    // Add the following attributes below to see what they do
+    //  data-classes="table table-hover table-condensed table-no-bordered"
+    //  data-striped="true"
+    //  data-search="true"
+    //  data-show-refresh="true"
+    //  data-show-toggle="true"
+    //  data-show-columns="true"
+    // Part 4
+    test_table.attr({         
+             "data-sort-name":  "letter",
+             "data-sort-order": "asc",
+             "data-striped":    true
+             });
+             
+    // Start the bootstrap table class
+    // Part 2 (you may have to comment out Part 1 first)
+    //$("#test_table table").bootstrapTable();
+  </script>
+</div>
+<div>
+<h2>Using D3 to Build a Table</h2>
+Now use your new found skills to generate a table from a variable <code>data</code> in the following script.
+  <div class="row">
+    <div id="d3_table" class="col-xs-6 col-xs-offset-3">
+    </div>
+  </div>
+<span title="text editor required">Edit me:</span> 
+<script>
+  // The data to turn into a table
+  var data = [
+    {Letter:"A", Number:1},
+    {Letter:"B", Number:2}
+  ];
+  
+  // An object to store the table objects
+  var d3_table = {};
+  
+  d3_table.labels = d3.keys(data[0]);
+  // code goes here
+  // Part 5
+  d3_table.table = d3.select("div#d3_table")
+                     // append a "table" element
+  
+  // Part 6 more or less the same as part 4,
+  // data-sort-name will need to depend on d3_table.labels though maybe use the first element
+  //d3_table.table.attr({
+  // *** your code goes here ***
+  //});
+  
+  // Part 7         
+  d3_table.header = d3_table.table
+                            .append("thead")
+  // Part 8
+  d3_table.headers = d3_table.header
+                             .append("tr")
+                             .selectAll("th")
+                             .data(d3_table.labels).enter()
+                             //.append("th")
+                             //.text(function(d){
+                             //  return d;
+                             //})
+                             //.attr("data-sortable",true)
+                             //.attr("data-field",function(d){
+                             //  return d;
+                             //})
+  
+  // Part 9
+  // either bind the data to the table the bootstrap table way
+  // this is what the data-field attribute is needed for
+  //$(table.node()).bootstrapTable({
+  //  data: data
+  //});
+    
+  // Part 10
+  // Or generate the table contents using D3 and bind to bootstrap tables
+  // this can be useful if you need to add extra columns from the data,
+  // or add special formatting or callbacks on the elements
+  //rows = d3_table.table
+  //               .append("tbody")
+  //               .selectAll("tr")
+  //               .data(data)
+  //               .enter()
+  //               .append("tr")
+ 
+  //cells = rows.selectAll("td")
+  //            .data(function(row){
+  //              return d3_table.labels.map(function(d){
+  //                return row[d];
+  //              });
+  //            })
+  //            .enter()
+  //            .append("td")
+  //            .text(function(d){
+  //              return d;
+  //            })
+  //$(d3_table.table.node()).bootstrapTable()       
+</script>
+</div>
+
+
+<div>
+<h2>Turn Ride_Data into a table</h2>
+Look at the data in Ride Data, can you turn it into a table using the techniques above?
+Can you make it so I could choose the ride with the most assent per mile travelled?
+You may be need to add an extra column. Can you spot anything unusual in the data,
+what do you think the data is from and is it what you would expect?
+  <div id="Ride_Data">
+  </div>
+<script>
+  // code goes here
+  // Part 11
+  var ride = {};
+  ride.data_container = d3.select("div#Ride_Data")
+                              .classed("row",true);
+  ride.table = ride.data_container.append("div")
+                                 .classed("col-xs-12",true)
+                                 .append("table")
+
+  // D3 works with requests and call back functions,
+  // you can request the data using d3.cvs and proses the data in a call back
+  d3.csv("Ride_Data.csv",function(error,data){
+    if (error) throw error;
+    
+    ride.labels  // = what?
+    ride.header  // = what?
+    ride.headers // = what?
+    /* //uncomment to make it work
+    ride.table.attr({ // remember to set table attributes  
+           // though data-sort-name is ride.labels[0] this time
+           //});
+    
+    $(ride.table.node()).bootstrapTable({
+      // what goes here? reed the bootstrap table docs
+      // or do it the d3 way from part 10
+    });*/
+  })
+</script>
+
+</div>
+
+<div>
+<h2>Plot something</h2>
+Look at some of the tutorials on <a href="http://bl.ocks.org/mbostock">blocks</a>, can you <a href="http://bl.ocks.org/mbostock/3887118">plot anything</a> interesting from the data in Ride_Data?
+<!--you may need style-->
+<style> 
+</style>
+<script>
+// Part 12
+</script>
+</div>
+<div>
+<h2>Surprise Me!</h2>
+<script>
+// Part 13
+</script>
+</div>
+<div>
+  <h2>Resources</h2>
+  <ul>
+  <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+  <li><a href="http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html">Bootstrap tables</a></li>
+  <li><a href="https://github.com/mbostock/d3/wiki/API-Reference"> D3 API reference</a></li>
+  </ul>
+</div>
+</div>
+</body>
