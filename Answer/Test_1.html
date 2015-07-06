@@ -24,6 +24,16 @@
 body {
     text-align: justify;
 }
+.big_caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+  border-top: 8px dashed;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
 </style>
 
 </meta>
@@ -33,40 +43,63 @@ body {
 <div class="col-xs-6 col-xs-offset-3">
 <div>
   <h2>Data Tables</h2>
-  You will find some data in a file named "Ride_Data.csv" the aim of this exercise is to display the data on a page using D3, add a bit of interactivity, and perhaps plot a graph of the data, and any metric you might find interesting.
-  <h2 title="setting things up">A Complication</h2>
-  To run this exercise you will need to run a simple web server to serve the data file to our JavaScript. This is because most browsers wont allow you to pull resources from the file system unless you have disabled some security options.
-  That is, while it’s possible to open files in your web browser out of the file system directly, this is likely to cause errors due to browser security restrictions.
-  <h3>Linux with python</h3>
-  If you are running Linux and have python installed you can start a simple HTTP file server by running:
+  You will find some data in a file named "Ride_Data.csv" the aim of this exercise is to display the data on a page using D3,
+  add a bit of interactivity, and perhaps plot a graph of the data, and any metric you might find interesting.
+  I don’t expect you to make it all the way through the exercise, if you do that is very good, however if you get stuck don't fret about it.
+  The point is to see how far you can get. If you cannot get the Ride_Data table to work an answer can be provided so that you can look at the data.
+  
   <div>
-  <code>
-  python -m SimpleHTTPServer
-  </code>
+    <h2 id="setup" title="how to set things up">A Complication<span class="big_caret"></span></h2>
+    <div id="setup">
+      To run the latter part of this exercise you will either need to run a simple web server to serve the data file to our JavaScript or open your browser with special options enabled.
+      This is because most browsers wont allow you to pull resources from the file system unless you have disabled some security options.
+      That is, while it’s possible to open files in your web browser out of the file system directly, this is likely to cause errors due to browser security restrictions.
+      <h3>Windows</h3>
+      <div>
+      <p>
+      There are two ways of tackling this issue.
+      You will notice a batch script in the directory called <code>openChrome.cmd</code>.
+      You will need Chrome installed for this to work. Close all existing Chrome windows and then run this batch script.
+      It should start Chrome with the <code>--allow-file-access-from-files </code> flag and open the Intro and Test_1 html files.
+      </p>
+      <p>
+      The second option is a bit more involved. If you can install <a title="Also I thoroughly recommend the google code tutorial!" href="https://developers.google.com/edu/python/set-up">python 2.7</a>
+      you can do the same <code>SimpleHTTPServer</code> trick as seen in the Linux section below.
+      Alternativly you could try <a href="https://code.google.com/p/mongoose/">mongoose</a> which is apparently quite good.
+      </p>
+      </div>
+      <h3>Linux with python</h3>
+      If you are running Linux and have python installed you can start a simple HTTP file server by running:
+      <div>
+      <code>
+      python -m SimpleHTTPServer
+      </code>
+      </div>
+      in the terminal in the file directory where the html sources are stored.
+      You should now be able to view the this file at <a href="localhost:8000/Test_1.html" title="Note the title in the address bar is localhost:8000 which means the file is being served out of your machine on port 8000.">Test 1</a>.
+      <h3>Mac Os X</h3>
+      <p>Taken from <a href="http://bost.ocks.org/mike/block/">here</a>.</p>
+      Install npm and http-server
+      <div>
+      <code>
+      curl https://npmjs.org/install.sh | sh
+      npm install http-server -g
+      </code>
+      </div>
+      Then in the directory where the html sources are stored.
+      <div>
+      <code>
+       http-server ./
+      </code>
+      </div>
+    </div>
   </div>
-  in the terminal in the file directory where the html sources are stored.
-  You should now be able to view the this file at <a href="localhost:8000/Test_1.html" title="Note the title in the address bar is localhost:8000 which means the file is being served out of your machine on port 8000.">Test 1</a>.
-  <h3>Mac Os X</h3>
-  <p>Taken from <a href="http://bost.ocks.org/mike/block/">here</a>.</p>
-  Install npm and http-server
-  <div>
-  <code>
-  curl https://npmjs.org/install.sh | sh
-  npm install http-server -g
-  </code>
-  </div>
-  Then in the directory where the html sources are stored.
-  <div>
-  <code>
-   http-server ./
-  </code>
-  </div>
-  <h3>Windows</h3>
-  <div>
-  Your a bit on your own on this one. If you can install <a title="Also I thoroughly recommend the google code tutorial!" href="https://developers.google.com/edu/python/set-up">python 2.7</a>
-  you can do the same <code>SimpleHTTPServer</code> trick as before
-  or perhaps you could try <a href="https://code.google.com/p/mongoose/">mongoose</a> which is apparently quite good.
-  </div>
+  <script>
+    $("div#setup").hide()
+    $("h2#setup").click(function(){
+      $("div#setup").slideToggle("slow");
+    });
+  </script>
 </div>
 <div>
   <h2>Formatting a Table</h2>
@@ -354,8 +387,10 @@ d3.csv("Ride_Data.csv", function(error, data) {
     //d.time = Time.pars
   });
 
-  x.domain(d3.extent(data, function(d) { return d.distance; })).nice();
-  y.domain(d3.extent(data, function(d) { return d["total assent"]; })).nice();
+  //x.domain(d3.extent(data, function(d) { return d.distance; })).nice();
+  //y.domain(d3.extent(data, function(d) { return d["total assent"]; })).nice();
+  x.domain([60,80])
+  y.domain([0,6000])
 
   svg.append("g")
       .attr("class", "x axis")

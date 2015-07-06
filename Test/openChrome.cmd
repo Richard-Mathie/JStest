@@ -1,2 +1,3 @@
-start chrome.exe --allow-file-access-from-files Intro.html Ride_Data.csv
+start chrome.exe --allow-file-access-from-files "%~dp0Intro.html" "%~dp0Test_1.html"
 pause
+
